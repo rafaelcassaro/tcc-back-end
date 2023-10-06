@@ -10,11 +10,10 @@ public class PostMoradia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tipoResidencia;
+    private boolean tipoResidencia;
     private String endereco;
     private Integer numCasa;
     private Double valorAluguel;
-    private String detalhesAluguel;
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
@@ -23,13 +22,12 @@ public class PostMoradia {
 
     public PostMoradia(){}
 
-    public PostMoradia(Long id, String tipoResidencia, String endereco, Integer numCasa, Double valorAluguel, String detalhesAluguel) {
+    public PostMoradia(Long id, boolean tipoResidencia, String endereco, Integer numCasa, Double valorAluguel) {
         this.id = id;
         this.tipoResidencia = tipoResidencia;
         this.endereco = endereco;
         this.numCasa = numCasa;
         this.valorAluguel = valorAluguel;
-        this.detalhesAluguel = detalhesAluguel;
     }
 
     public Long getId() {
@@ -41,10 +39,16 @@ public class PostMoradia {
     }
 
     public String getTipoResidencia() {
-        return tipoResidencia;
+        if(tipoResidencia == true){
+            return "Casa";
+        }
+        else {
+            return "Apartamento";
+        }
+
     }
 
-    public void setTipoResidencia(String tipoResidencia) {
+    public void setTipoResidencia(boolean tipoResidencia) {
         this.tipoResidencia = tipoResidencia;
     }
 
@@ -72,13 +76,6 @@ public class PostMoradia {
         this.valorAluguel = valorAluguel;
     }
 
-    public String getDetalhesAluguel() {
-        return detalhesAluguel;
-    }
-
-    public void setDetalhesAluguel(String detalhesMoradia) {
-        this.detalhesAluguel = detalhesMoradia;
-    }
 
     public DetalhesMoradia getDetalhes() {
         return detalhesMoradia;

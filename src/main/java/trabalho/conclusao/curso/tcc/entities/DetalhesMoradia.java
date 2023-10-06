@@ -2,6 +2,7 @@ package trabalho.conclusao.curso.tcc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import trabalho.conclusao.curso.tcc.entities.enums.GeneroMoradia;
 
 
 @Entity
@@ -11,22 +12,27 @@ public class DetalhesMoradia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String quarto;
-    private Integer garagem;
+    private boolean quarto;
+    private boolean garagem;
     private Integer moradores;
-    private Integer pets;
+    private boolean pets;
+
+    private Integer generoMoradia;
+
 
     @JsonIgnore
     @OneToOne(mappedBy = "detalhesMoradia", cascade = CascadeType.ALL)
     private PostMoradia postMoradia;
 
     public  DetalhesMoradia(){}
-    public DetalhesMoradia(Long id, String quarto, Integer garagem, Integer moradores, Integer pets) {
+
+    public DetalhesMoradia(Long id, boolean quarto, boolean garagem, Integer moradores, boolean pets, Integer generoMoradia) {
         this.id = id;
         this.quarto = quarto;
         this.garagem = garagem;
         this.moradores = moradores;
         this.pets = pets;
+        this.generoMoradia = generoMoradia;
     }
 
     public Long getId() {
@@ -38,18 +44,29 @@ public class DetalhesMoradia {
     }
 
     public String getQuarto() {
-        return quarto;
+        if(quarto ==true){
+            return "individual";
+        }
+        else{
+            return "compartilhado";
+        }
     }
 
-    public void setQuarto(String quarto) {
+    public void setQuarto(boolean quarto) {
         this.quarto = quarto;
     }
 
-    public Integer getGaragem() {
-        return garagem;
+    public String getGaragem() {
+        if(garagem ==true){
+            return "tem garagem";
+        }
+        else{
+            return "não tem garagem";
+        }
+
     }
 
-    public void setGaragem(Integer garagem) {
+    public void setGaragem(boolean garagem) {
         this.garagem = garagem;
     }
 
@@ -61,12 +78,28 @@ public class DetalhesMoradia {
         this.moradores = moradores;
     }
 
-    public Integer getPets() {
-        return pets;
+    public String getPets() {
+        if(pets ==true){
+            return "possui";
+        }
+        else{
+            return "não possui";
+        }
+
     }
 
-    public void setPets(Integer pets) {
+    public void setPets(boolean pets) {
         this.pets = pets;
+    }
+
+    public GeneroMoradia getGeneroMoradia() {
+        return GeneroMoradia.valueOf(generoMoradia);
+    }
+
+    public void setGeneroMoradia(GeneroMoradia generoMoradia) {
+        if(generoMoradia != null){
+            this.generoMoradia = generoMoradia.getCode();
+        }
     }
 
     public PostMoradia getPostMoradia() {

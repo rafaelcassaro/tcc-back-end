@@ -6,6 +6,7 @@ import trabalho.conclusao.curso.tcc.entities.Post;
 import trabalho.conclusao.curso.tcc.repositories.PostRepository;
 import trabalho.conclusao.curso.tcc.services.exceptions.ResourceNotFoundException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,5 +22,10 @@ public class PostService {
     public Post findById(Long id) {
         Optional<Post> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public Post insert(Post obj){
+        obj.setDataPost(new Date());
+        return repository.save(obj);
     }
 }

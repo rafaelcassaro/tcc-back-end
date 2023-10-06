@@ -19,7 +19,7 @@ public class Usuario  implements Serializable{
     private Long id;
     private String nome;
     private String email;
-    private Integer celular;
+    private String celular;
     private String senha;
     private String link1;
     private String link2;
@@ -45,7 +45,7 @@ public class Usuario  implements Serializable{
     public Usuario(){}
 
 
-    public Usuario(Long id, String nome, String email, Integer celular, String senha, String link1, String link2, String link3) {
+    public Usuario(Long id, String nome, String email, String celular, String senha, String link1, String link2, String link3) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -82,11 +82,11 @@ public class Usuario  implements Serializable{
         this.email = email;
     }
 
-    public Integer getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(Integer celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

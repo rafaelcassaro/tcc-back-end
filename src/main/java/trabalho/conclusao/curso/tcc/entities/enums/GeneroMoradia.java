@@ -1,14 +1,14 @@
 package trabalho.conclusao.curso.tcc.entities.enums;
 
-public enum PlanoStatus {
+public enum GeneroMoradia {
 
-    FINALIZADO(1),
-    ATIVO(2)
-    ;
+    MASCULINA(1),
+    FEMININA(2),
+    MISTA(3);
 
     private int code;
 
-    PlanoStatus(int code) {
+    GeneroMoradia(int code) {
         this.code = code;
     }
 
@@ -16,13 +16,13 @@ public enum PlanoStatus {
         return code;
     }
 
-    public static PlanoStatus valueOf(int code) {
-        for (PlanoStatus value : PlanoStatus.values()) {
+    public static GeneroMoradia valueOf(int code) {
+        for (GeneroMoradia value : GeneroMoradia.values()) {
             //verificar se o valor tem na classe enum
             if(value.getCode() == code) {
                 return value;
             }
         }
-        throw new IllegalArgumentException("Codigo de  status de Plano invalido");
+        throw new IllegalArgumentException("Codigo de Genero Moradia invalido");
     }
 }

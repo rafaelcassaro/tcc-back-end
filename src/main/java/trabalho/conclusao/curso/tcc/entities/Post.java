@@ -1,5 +1,6 @@
 package trabalho.conclusao.curso.tcc.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -15,8 +16,10 @@ public class Post {
     private String comentario;
     private String cidade;
     private String estado;
+
+    //@JsonFormat(pattern="dd MMM yyyy")
     private Date dataPost;
-    private Integer cep;
+    private String cep;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
@@ -30,7 +33,7 @@ public class Post {
 
     public Post(){}
 
-    public Post(Long id, Integer qntdDenuncia, String comentario, String cidade, String estado, Date dataPost, Integer cep) {
+    public Post(Long id, Integer qntdDenuncia, String comentario, String cidade, String estado, Date dataPost, String cep) {
         this.id = id;
         this.qntdDenuncia = qntdDenuncia;
         this.comentario = comentario;
@@ -88,11 +91,11 @@ public class Post {
         this.dataPost = dataPost;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
