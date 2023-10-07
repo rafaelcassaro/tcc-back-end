@@ -2,6 +2,9 @@ package trabalho.conclusao.curso.tcc.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import trabalho.conclusao.curso.tcc.entities.enums.PlanoStatus;
 
 
@@ -10,7 +13,8 @@ import java.util.*;
 
 @Entity
 @Table(name ="usuario")
-public class Usuario  implements Serializable{
+@EqualsAndHashCode(of = "id")
+public class Usuario  implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +49,10 @@ public class Usuario  implements Serializable{
 
     public Usuario(){}
 
+    public Usuario(String email, String senha){
+        this.email = email;
+        this.senha = senha;
+    }
 
     public Usuario(Long id, String nome, String email, String celular, String senha, String link1, String link2, String link3) {
         this.id = id;
@@ -159,5 +167,47 @@ public class Usuario  implements Serializable{
         }
         contratos.add(tempContratos);
         tempContratos.setUsuario(this);
+    }
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<>();
+    }
+
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

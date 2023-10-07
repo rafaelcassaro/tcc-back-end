@@ -1,10 +1,14 @@
 package trabalho.conclusao.curso.tcc.services;
 
 
+import trabalho.conclusao.curso.tcc.data.DetalhesUsuarioData;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import trabalho.conclusao.curso.tcc.entities.Usuario;
 import trabalho.conclusao.curso.tcc.repositories.UsuarioRepository;
@@ -15,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioService {
+public class UsuarioService{
 
     @Autowired
     private UsuarioRepository repository;
@@ -69,10 +73,15 @@ public class UsuarioService {
         entity.setLink3(obj.getLink3());
     }
 
-    public Optional<Usuario> getFindByEmail(String email){
-        return repository.findByEmail(email);
-
-    }
 
 
+    /*@Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Usuario> usuario = repository.findByEmail(username);
+        if(usuario.isEmpty()){
+            throw new UsernameNotFoundException("Usuario ("+ username+ ") não encontrado!");
+        }
+
+        return new DetalhesUsuarioData(usuario);
+    }*/
 }

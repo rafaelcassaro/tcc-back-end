@@ -1,4 +1,4 @@
-package data;
+package trabalho.conclusao.curso.tcc.data;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
