@@ -49,7 +49,7 @@ public class TestConfig implements CommandLineRunner {
         String comentario = "Procuro alguem para divir um ap próximo do lugar x, com valor de xxxx, que aceita pets xxxxx";
 
 
-        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "rafael@gmail.com", "16992129161", "rafa1", "Link1", "Link2", "Link3");
+        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "rafa", "16992129161", "rafa1", "Link1", "Link2", "Link3");
         Usuario u2 = new Usuario(null, "Merlo", "Merlo@gmail.com", "10000000", "password", "www.link1.com.br", "www.link2.com.br", "www.link3.com.br");
         Post post1 = new Post(null, 10, comentario, "Pontal", "SP", data, "14180000");
         Post post2 = new Post(null, 15, comentario, "sertaozinho", "SP", data, "564251748");

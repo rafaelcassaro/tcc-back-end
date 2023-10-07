@@ -30,7 +30,12 @@ public class UsuarioService {
     }
 
     public Usuario insert(Usuario obj) {
-        return repository.save(obj);
+        try{
+            return repository.save(obj);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public void delete (Long id) {
@@ -62,6 +67,11 @@ public class UsuarioService {
         entity.setLink1(obj.getLink1());
         entity.setLink2(obj.getLink2());
         entity.setLink3(obj.getLink3());
+    }
+
+    public Optional<Usuario> getFindByEmail(String email){
+        return repository.findByEmail(email);
+
     }
 
 
