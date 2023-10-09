@@ -1,4 +1,4 @@
 package trabalho.conclusao.curso.tcc.entities;
 
-public record LoginResponseDTO(String token) {
+public record LoginResponseDTO(String token , Long id){
 }
