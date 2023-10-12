@@ -24,6 +24,12 @@ public class PostService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public List<Post> findPostByUserId(Long id) {
+        //List<Post> obj = repository.findPostByUserId(id);
+        return repository.findAllPostByusuario_id(id);
+        //return null;
+    }
+
     public Post insert(Post obj){
         obj.setDataPost(new Date());
         return repository.save(obj);

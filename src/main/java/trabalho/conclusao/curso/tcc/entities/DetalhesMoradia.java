@@ -16,7 +16,6 @@ public class DetalhesMoradia {
     private boolean garagem;
     private Integer moradores;
     private boolean pets;
-
     private Integer generoMoradia;
 
 
@@ -43,27 +42,16 @@ public class DetalhesMoradia {
         this.id = id;
     }
 
-    public String getQuarto() {
-        if(quarto ==true){
-            return "individual";
-        }
-        else{
-            return "compartilhado";
-        }
+    public boolean isQuarto() {
+        return quarto;
     }
 
     public void setQuarto(boolean quarto) {
         this.quarto = quarto;
     }
 
-    public String getGaragem() {
-        if(garagem ==true){
-            return "tem garagem";
-        }
-        else{
-            return "não tem garagem";
-        }
-
+    public boolean isGaragem() {
+        return garagem;
     }
 
     public void setGaragem(boolean garagem) {
@@ -78,14 +66,8 @@ public class DetalhesMoradia {
         this.moradores = moradores;
     }
 
-    public String getPets() {
-        if(pets ==true){
-            return "possui";
-        }
-        else{
-            return "não possui";
-        }
-
+    public boolean isPets() {
+        return pets;
     }
 
     public void setPets(boolean pets) {

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import trabalho.conclusao.curso.tcc.entities.*;
 import trabalho.conclusao.curso.tcc.entities.enums.PlanoStatus;
 import trabalho.conclusao.curso.tcc.repositories.*;
@@ -46,19 +47,22 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Date data = new Date();
+        //String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
+        String u1EncryptedPassword = new BCryptPasswordEncoder().encode("a");
+        String u2EncryptedPassword = new BCryptPasswordEncoder().encode("b");
         String comentario = "Procuro alguem para divir um ap próximo do lugar x, com valor de xxxx, que aceita pets xxxxx";
 
 
-        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "rafa", "16992129161", "rafa1", "Link1", "Link2", "Link3");
-        Usuario u2 = new Usuario(null, "Merlo", "Merlo@gmail.com", "10000000", "password", "www.link1.com.br", "www.link2.com.br", "www.link3.com.br");
+        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "a", "16992129161", u1EncryptedPassword, "Link1", "Link2", "Link3");
+        Usuario u2 = new Usuario(null, "Merlo", "b", "10000000", u2EncryptedPassword, "www.link1.com.br", "www.link2.com.br", "www.link3.com.br");
         Post post1 = new Post(null, 10, comentario, "Pontal", "SP", data, "14180000");
         Post post2 = new Post(null, 15, comentario, "sertaozinho", "SP", data, "564251748");
         Post post3 = new Post(null, 15, comentario, "Ribeirão preto", "SP", data, "564251748");
         Post post4 = new Post(null, 15, comentario, "Santa catarina", "SC", data, "564251748");
-        PostMoradia pMoradia1 = new PostMoradia(null, true, "Rua Genoveva Onófre Barban", 679, 550.00);
-        PostMoradia pMoradia2 = new PostMoradia(null, false, "Rua Genoveva Onófre Barban", 2455, 800.00);
-        PostMoradia pMoradia3 = new PostMoradia(null, false, "Rua Genoveva Onófre Barban", 213, 599.21);
-        PostMoradia pMoradia4 = new PostMoradia(null, false, "Rua Genoveva Onófre Barban", 23, 2299.21);
+        PostMoradia pMoradia1 = new PostMoradia(null, true, "U1 Rua Genoveva Onófre Barban", 679, 550.00);
+        PostMoradia pMoradia2 = new PostMoradia(null, false, "U1 Rua Genoveva Onófre Barban", 2455, 800.00);
+        PostMoradia pMoradia3 = new PostMoradia(null, false, "U2 Rua Genoveva Onófre Barban", 213, 599.21);
+        PostMoradia pMoradia4 = new PostMoradia(null, false, "U2 Rua Genoveva Onófre Barban", 23, 2299.21);
         Planos plano1 = new Planos(null, "Standard", "descricao standard");
         Planos plano2 = new Planos(null, "Black", "descricao Black");
         Planos plano3 = new Planos(null, "Premium", "descricao Premium");

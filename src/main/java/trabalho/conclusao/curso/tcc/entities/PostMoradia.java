@@ -38,14 +38,8 @@ public class PostMoradia {
         this.id = id;
     }
 
-    public String getTipoResidencia() {
-        if(tipoResidencia == true){
-            return "Casa";
-        }
-        else {
-            return "Apartamento";
-        }
-
+    public boolean isTipoResidencia() {
+        return tipoResidencia;
     }
 
     public void setTipoResidencia(boolean tipoResidencia) {
