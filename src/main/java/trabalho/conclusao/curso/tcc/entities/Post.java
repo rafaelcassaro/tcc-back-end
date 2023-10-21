@@ -17,7 +17,7 @@ public class Post {
     private String cidade;
     private String estado;
 
-   // @JsonFormat(pattern="dd MMM yyyy")
+   //G @JsonFormat(pattern="dd MMM yyyy")
     private Date dataPost;
     private String cep;
 

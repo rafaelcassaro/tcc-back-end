@@ -73,13 +73,14 @@ public class PostController {
        // return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
+    //EDITAR O POSTMORADIA TENHO Q FAZER O PRA EDITAR SO O POST COM POSTMORADIA NULL
     @PostMapping(value = "edit/{idUser}/{idMoradia}")
-    public ResponseEntity<Post> update(@RequestBody Post obj, @PathVariable Long idUser,@PathVariable Long idMoradia){
-        //obj.setDataPost(null);
-        Usuario user = userService.findById(idUser);
+    public ResponseEntity<Post> updatePostMoradia(@RequestBody Post obj, @PathVariable Long idUser,@PathVariable Long idMoradia){
         PostMoradia postMoradia = postMoradiaService.findById(idMoradia);
-
         DetalhesMoradia detalhesMoradia = detalhesMoradiaService.findById(obj.getPostMoradia().getDetalhes().getId());
+
+        Usuario user = userService.findById(idUser);
+
         Post post = obj;
         //post.setDataPost(null);
         //post.setDataPost(new Date());
@@ -96,6 +97,29 @@ public class PostController {
         return ResponseEntity.created(uri).body(post);    //created(espera um obj uri) para voltar o voltar o padrao http certo
         // return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
+
+    @PostMapping(value = "edit/{idUser}")
+    public ResponseEntity<Post> updatePost(@RequestBody Post obj, @PathVariable Long idUser){
+
+        Usuario user = userService.findById(idUser);
+        Post post = obj;
+
+        //post.setDataPost(null);
+        //post.setDataPost(new Date());
+        if(user != null ){
+            post.setUsuario(user);
+            post = service.insert(post);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+            return ResponseEntity.created(uri).body(post);
+        }
+
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(post);    //created(espera um obj uri) para voltar o voltar o padrao http certo
+        // return new ResponseEntity<>(post, HttpStatus.CREATED);
+    }
+
+
 
 
 }

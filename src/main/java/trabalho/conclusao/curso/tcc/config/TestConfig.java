@@ -61,7 +61,7 @@ public class TestConfig implements CommandLineRunner {
         Post post4 = new Post(null, 15, comentario, "Santa catarina", "SC", data, "564251748");
         PostMoradia pMoradia1 = new PostMoradia(null, true, "U1 Rua Genoveva Onófre Barban", 679, 550.00);
         PostMoradia pMoradia2 = new PostMoradia(null, false, "U1 Rua Genoveva Onófre Barban", 2455, 800.00);
-        PostMoradia pMoradia3 = new PostMoradia(null, false, "U2 Rua Genoveva Onófre Barban", 213, 599.21);
+        PostMoradia pMoradia3 = new PostMoradia(null, true, "U2 Rua Genoveva Onófre Barban", 213, 599.21);
         PostMoradia pMoradia4 = new PostMoradia(null, false, "U2 Rua Genoveva Onófre Barban", 23, 2299.21);
         Planos plano1 = new Planos(null, "Standard", "descricao standard");
         Planos plano2 = new Planos(null, "Black", "descricao Black");
