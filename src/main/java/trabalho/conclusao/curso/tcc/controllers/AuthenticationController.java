@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import trabalho.conclusao.curso.tcc.entities.AuthenticationDTO;
 import trabalho.conclusao.curso.tcc.entities.LoginResponseDTO;
 import trabalho.conclusao.curso.tcc.entities.RegisterDTO;
 import trabalho.conclusao.curso.tcc.entities.Usuario;
 import trabalho.conclusao.curso.tcc.repositories.UsuarioRepository;
 import trabalho.conclusao.curso.tcc.security.TokenService;
+
+import java.net.URI;
 
 
 @RestController
@@ -49,7 +52,10 @@ public class AuthenticationController {
 
         this.repository.save(newUser);
 
-        return ResponseEntity.ok().build();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newUser.getId()).toUri();
+        return ResponseEntity.created(uri).body(newUser);
+
+        //return ResponseEntity.ok().build();
     }
 
 

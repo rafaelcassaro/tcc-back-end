@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -42,7 +43,10 @@ public class UsuarioController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario obj){
+        String encryptedPassword = new BCryptPasswordEncoder().encode(obj.getSenha());
+        obj.setSenha(encryptedPassword);
         obj = service.update(id, obj);
+
         return ResponseEntity.ok().body(obj);
     }
 
