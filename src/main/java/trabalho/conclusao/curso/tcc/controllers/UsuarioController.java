@@ -2,24 +2,13 @@ package trabalho.conclusao.curso.tcc.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import trabalho.conclusao.curso.tcc.entities.AuthenticationDTO;
-import trabalho.conclusao.curso.tcc.entities.LoginResponseDTO;
 import trabalho.conclusao.curso.tcc.entities.Usuario;
-import trabalho.conclusao.curso.tcc.repositories.UsuarioRepository;
-import trabalho.conclusao.curso.tcc.security.TokenService;
 import trabalho.conclusao.curso.tcc.services.UsuarioService;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/usuarios")

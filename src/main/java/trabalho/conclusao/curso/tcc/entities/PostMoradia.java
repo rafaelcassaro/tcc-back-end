@@ -3,6 +3,9 @@ package trabalho.conclusao.curso.tcc.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "post_moradia")
 public class PostMoradia {
@@ -19,6 +22,10 @@ public class PostMoradia {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "detalhes_moradia_id")
     private DetalhesMoradia detalhesMoradia;
+
+    @OneToMany(mappedBy = "postMoradia",cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Fotos> fotos;
 
     public PostMoradia(){}
 
@@ -77,5 +84,29 @@ public class PostMoradia {
 
     public void setDetalhes(DetalhesMoradia detalhes) {
         this.detalhesMoradia = detalhes;
+    }
+
+    public List<Fotos> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(List<Fotos> fotos) {
+        this.fotos = fotos;
+    }
+
+    public DetalhesMoradia getDetalhesMoradia() {
+        return detalhesMoradia;
+    }
+
+    public void addFoto(Fotos tempFoto){
+        if ((fotos == null)){
+            fotos = new ArrayList<>();
+        }
+
+        fotos.add(tempFoto);
+        tempFoto.setPostMoradia(this);
+    }
+    public void setDetalhesMoradia(DetalhesMoradia detalhesMoradia) {
+        this.detalhesMoradia = detalhesMoradia;
     }
 }

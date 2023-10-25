@@ -74,7 +74,9 @@ public class TestConfig implements CommandLineRunner {
         DetalhesMoradia detalhesMoradia3 = new DetalhesMoradia(null, false, true, 4, true, 3);
         DetalhesMoradia detalhesMoradia4 = new DetalhesMoradia(null, true, false, 5, true, 1);
 
+        Fotos foto1 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\Imagem1.jpg", "Imagem1.jpg");
 
+        pMoradia1.addFoto(foto1);
         //contratoRep.save(contrato);
 
 

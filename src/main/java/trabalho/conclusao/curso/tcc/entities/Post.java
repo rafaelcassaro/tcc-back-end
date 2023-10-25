@@ -31,6 +31,8 @@ public class Post {
     private PostMoradia postMoradia;
 
 
+
+
     public Post(){}
 
     public Post(Long id, Integer qntdDenuncia, String comentario, String cidade, String estado, Date dataPost, String cep) {
