@@ -2,6 +2,8 @@ package trabalho.conclusao.curso.tcc.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +53,14 @@ public class PostController {
         return ResponseEntity.ok().body(obj);
     }
 
+    @GetMapping(value = "/cidade/{cidade}")
+    public ResponseEntity<List<Post>> findAllPostBycidade(@PathVariable String cidade){
+        List<Post> obj = service.findAllPostBycidade(cidade);
+        return ResponseEntity.ok().body(obj);
+    }
+
+
+
     /*@PostMapping
     public ResponseEntity<Post> insert (@RequestBody Post obj){
         obj = service.insert(obj);
@@ -59,8 +69,82 @@ public class PostController {
         return ResponseEntity.created(uri).body(obj);    //created(espera um obj uri) para voltar o voltar o padrao http certo
     }*/
 
+    @GetMapping(value = "/fotoperfil/{imageName:.+}", produces = "image/jpeg")
+    public ResponseEntity<Resource> getUserProfilePicture(@PathVariable String imageName){
+        try {
+            // Caminho para o diretório onde as imagens estão armazenadas
+            String imageDirectory = "src\\main\\resources\\static\\images\\image-perfil\\";
+
+            // Construa o caminho completo para a imagem
+            String imagePath = imageDirectory + imageName;
+
+            // Crie um recurso a partir do caminho da imagem
+            Resource resource = new UrlResource("file:" + imagePath);
+
+            // Verifique se o arquivo existe
+            if (resource.exists() && resource.isReadable()) {
+                System.out.println("deu bao");
+                return ResponseEntity.ok(resource);
+
+            } else {
+                System.out.println("deu ruim");
+                return ResponseEntity.notFound().build();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PostMapping("/cadastro/{id}")
+    public ResponseEntity<Fotos> insertCorreto (@RequestParam("file") MultipartFile imagem, @PathVariable Long id){
+        Fotos fotos = new Fotos();
+        try{
+            if (imagem.isEmpty()){
+                return ResponseEntity.noContent().build();
+            }
+
+            String imagesPaste = "src\\main\\resources\\static\\images\\image-moradias\\";
+            File dir = new File(imagesPaste);
+            if (!dir.exists()){
+                dir.mkdirs();
+            }
+
+            File serverFile = new File(imagesPaste + imagem.getOriginalFilename());
+
+            try (FileOutputStream stream = new FileOutputStream(serverFile)){
+                stream.write(imagem.getBytes());
+
+            }
+            PostMoradia postMoradia = postMoradiaService.findById(id);
+
+            fotos.setCaminhoImagem(serverFile.toString());
+            fotos.setNomeFoto(serverFile.getName());
+            fotos.setPostMoradia(postMoradia);
+
+
+
+            //fotos.setCaminhoImagem(serverFile.get);
+            System.out.println("==================================================================================================");
+            System.out.println(serverFile.getCanonicalPath());
+            // System.out.println(serverFile.getName());*
+            //  System.out.println(serverFile.toPath());*
+            System.out.println(serverFile.toURI());
+            System.out.println(serverFile.toString());
+            System.out.println(serverFile.getTotalSpace());
+
+
+            //fotosService.insert(fotos);
+            return ResponseEntity.ok().body(fotos);
+
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(fotos);
+        }
+    }
+
     @PostMapping(value = "/{id}")
-    public ResponseEntity<Post> insert(@RequestBody Post obj, @PathVariable Long id) {
+    public ResponseEntity<Post> insert( @RequestBody Post obj, @PathVariable Long id) {
 
 
         Usuario user = userService.findById(id);

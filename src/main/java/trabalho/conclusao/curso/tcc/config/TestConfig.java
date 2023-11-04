@@ -53,12 +53,19 @@ public class TestConfig implements CommandLineRunner {
         String comentario = "Procuro alguem para divir um ap próximo do lugar x, com valor de xxxx, que aceita pets xxxxx";
 
 
-        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "a", "16992129161", u1EncryptedPassword, "Link1", "Link2", "Link3");
-        Usuario u2 = new Usuario(null, "Merlo", "b", "10000000", u2EncryptedPassword, "www.link1.com.br", "www.link2.com.br", "www.link3.com.br");
-        Post post1 = new Post(null, 10, comentario, "Pontal", "SP", data, "14180000");
-        Post post2 = new Post(null, 15, comentario, "sertaozinho", "SP", data, "564251748");
-        Post post3 = new Post(null, 15, comentario, "Ribeirão preto", "SP", data, "564251748");
-        Post post4 = new Post(null, 15, comentario, "Santa catarina", "SC", data, "564251748");
+        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "a", "16992129161", u1EncryptedPassword, "Cristiano", "Cristiano", "Cristiano", "imgperfil.jpg", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil.jpg");
+        Usuario u2 = new Usuario(null, "Merlo", "b", "10000000", u2EncryptedPassword, "neymarjr", "neymarjr", "neymarjr","imgperfil2.png", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil2.png");
+
+        Post post1 = new Post(null, 10, comentario, "Pontal", "SP", data, "89010025");
+        Post post2 = new Post(null, 15, comentario, "Sertaozinho", "SP", data, "89010025");
+        Post post3 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025");
+        Post post4 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025");
+
+        Post post5 = new Post(null, 10, comentario, "Pontal", "SP", data, "89010025");
+        Post post6 = new Post(null, 15, comentario, "Sertaozinho", "SP", data, "89010025");
+        Post post7 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025");
+        Post post8 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025");
+
         PostMoradia pMoradia1 = new PostMoradia(null, true, "U1 Rua Genoveva Onófre Barban", 679, 550.00);
         PostMoradia pMoradia2 = new PostMoradia(null, false, "U1 Rua Genoveva Onófre Barban", 2455, 800.00);
         PostMoradia pMoradia3 = new PostMoradia(null, true, "U2 Rua Genoveva Onófre Barban", 213, 599.21);
@@ -74,9 +81,28 @@ public class TestConfig implements CommandLineRunner {
         DetalhesMoradia detalhesMoradia3 = new DetalhesMoradia(null, false, true, 4, true, 3);
         DetalhesMoradia detalhesMoradia4 = new DetalhesMoradia(null, true, false, 5, true, 1);
 
-        Fotos foto1 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\Imagem1.jpg", "Imagem1.jpg");
+       // Fotos foto1 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\Imagem1.jpg", "Imagem1.jpg");
+       // Fotos foto2 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\1000000034.jpg", "1000000034.jpg");
+
+        Fotos foto1 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa1.jpg", "casa1.jpg");
+        Fotos foto2 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa2.jpg", "casa2.jpg");
+        Fotos foto3 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa3.jpg", "casa3.jpg");
+        Fotos foto4 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa4.jpg", "casa4.jpg");
+        Fotos foto5 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa5.jpg", "casa5.jpg");
+        Fotos foto6 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa6.jpg", "casa6.jpg");
+        Fotos foto7 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa7.jpg", "casa7.jpg");
+        Fotos foto8 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa8.jpg", "casa8.jpg");
+
 
         pMoradia1.addFoto(foto1);
+        pMoradia1.addFoto(foto2);
+        pMoradia2.addFoto(foto3);
+        pMoradia2.addFoto(foto4);
+        pMoradia3.addFoto(foto5);
+        pMoradia3.addFoto(foto6);
+        pMoradia4.addFoto(foto7);
+        pMoradia4.addFoto(foto8);
+
         //contratoRep.save(contrato);
 
 
@@ -96,6 +122,10 @@ public class TestConfig implements CommandLineRunner {
         u1.addPost(post2);
         u2.addPost(post3);
         u2.addPost(post4);
+        u1.addPost(post5);
+        u1.addPost(post6);
+        u2.addPost(post7);
+        u2.addPost(post8);
         pMoradia1.setDetalhes(detalhesMoradia1);
         pMoradia2.setDetalhes(detalhesMoradia3);
         pMoradia3.setDetalhes(detalhesMoradia2);

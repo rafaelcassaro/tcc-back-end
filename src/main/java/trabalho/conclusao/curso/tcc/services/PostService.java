@@ -30,6 +30,10 @@ public class PostService {
         //return null;
     }
 
+    public List<Post> findAllPostBycidade(String cidade){
+        return repository.findAllPostBycidade(cidade);
+    }
+
     public Post insert(Post obj){
         obj.setDataPost(new Date());
         return repository.save(obj);

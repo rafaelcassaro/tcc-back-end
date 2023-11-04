@@ -5,32 +5,27 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import trabalho.conclusao.curso.tcc.entities.Fotos;
-import trabalho.conclusao.curso.tcc.entities.Post;
 import trabalho.conclusao.curso.tcc.entities.PostMoradia;
-import trabalho.conclusao.curso.tcc.entities.Usuario;
 import trabalho.conclusao.curso.tcc.services.FotosService;
 import trabalho.conclusao.curso.tcc.services.PostMoradiaService;
-import trabalho.conclusao.curso.tcc.utils.UploadImage;
+import trabalho.conclusao.curso.tcc.services.PostService;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/imagens")
 public class ImagemController {
 
     @Autowired
-    private FotosService service;
-
+    private FotosService fotosService;
     @Autowired
     private PostMoradiaService postMoradiaService;
+    @Autowired
+    private PostService postService;
 
    /* @PostMapping("/cadastro")
     public String insert (@RequestParam("file") MultipartFile imagem){
@@ -75,11 +70,12 @@ public class ImagemController {
     }*/
 
 
-    @GetMapping("/{imageName:.+}")
+
+    @GetMapping(value = "/{imageName:.+}", produces = "image/jpeg")
     public ResponseEntity<Resource> getImage(@PathVariable String imageName) {
         try {
             // Caminho para o diretório onde as imagens estão armazenadas
-            String imageDirectory = "C:\\Users\\rafae\\eclipse-workspace\\tcc- not\\tcc\\src\\main\\resources\\static\\images\\image-moradias\\";
+            String imageDirectory = "src\\main\\resources\\static\\images\\image-moradias\\";
 
             // Construa o caminho completo para a imagem
             String imagePath = imageDirectory + imageName;
@@ -138,7 +134,7 @@ public class ImagemController {
             System.out.println(serverFile.getTotalSpace());
 
 
-            service.insert(fotos);
+            fotosService.insert(fotos);
             return ResponseEntity.ok().body(fotos);
 
         }catch (Exception e){
@@ -184,7 +180,7 @@ public class ImagemController {
             System.out.println(serverFile.getTotalSpace());
 
 
-            service.insert(fotos);
+            fotosService.insert(fotos);
             return ResponseEntity.ok().body(fotos);
 
         }catch (Exception e){
@@ -208,7 +204,7 @@ public class ImagemController {
 
     @DeleteMapping(value = "/{id}")  //anotacao do spring boot para delecao
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        service.delete(id);
+        fotosService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

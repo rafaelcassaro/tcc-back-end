@@ -46,6 +46,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(mvc.pattern("/auth/register")).permitAll()
                         .requestMatchers(mvc.pattern("/auth/login")).permitAll()
+                        .requestMatchers(mvc.pattern("/usuarios/register/fotoperfil/{id}")).permitAll()
                         .requestMatchers(antPathRequestMatcherProvider().getRequestMatcher("/h2-console/**")).permitAll()
                         //.requestMatchers(mvc.pattern("/h2-console"), mvc.pattern("/**")).permitAll()
                         .anyRequest().authenticated())

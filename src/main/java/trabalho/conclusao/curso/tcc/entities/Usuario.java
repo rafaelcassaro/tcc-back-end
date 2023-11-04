@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import trabalho.conclusao.curso.tcc.entities.enums.PlanoStatus;
 
 
 import java.io.Serializable;
@@ -29,7 +28,8 @@ public class Usuario  implements Serializable, UserDetails {
     private String link1;
     private String link2;
     private String link3;
-    //private Image fotoPerfil;
+    private String nomeFotoPerfil;
+    private String caminhoImagem;
 
     @JsonIgnore
     @OneToMany(mappedBy = "usuario",cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -63,7 +63,19 @@ public class Usuario  implements Serializable, UserDetails {
         this.link1 = link1;
         this.link2 = link2;
         this.link3 = link3;
-        //this.fotoPerfil = fotoPerfil;
+    }
+
+    public Usuario(Long id, String nome, String email, String celular, String senha, String link1, String link2, String link3, String nomeFotoPerfil, String caminhoImagem  ) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.celular = celular;
+        this.senha = senha;
+        this.link1 = link1;
+        this.link2 = link2;
+        this.link3 = link3;
+        this.nomeFotoPerfil = nomeFotoPerfil;
+        this.caminhoImagem = caminhoImagem;
     }
 
 
@@ -129,6 +141,22 @@ public class Usuario  implements Serializable, UserDetails {
 
     public void setLink3(String link3) {
         this.link3 = link3;
+    }
+
+    public String getNomeFotoPerfil() {
+        return nomeFotoPerfil;
+    }
+
+    public void setNomeFotoPerfil(String nomeFotoPerfil) {
+        this.nomeFotoPerfil = nomeFotoPerfil;
+    }
+
+    public String getCaminhoImagem() {
+        return caminhoImagem;
+    }
+
+    public void setCaminhoImagem(String caminhoImagem) {
+        this.caminhoImagem = caminhoImagem;
     }
 
     public List<Post> getPostagens() {
