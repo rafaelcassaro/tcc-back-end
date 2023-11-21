@@ -10,15 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import trabalho.conclusao.curso.tcc.entities.*;
-import trabalho.conclusao.curso.tcc.services.DetalhesMoradiaService;
-import trabalho.conclusao.curso.tcc.services.PostMoradiaService;
-import trabalho.conclusao.curso.tcc.services.PostService;
-import trabalho.conclusao.curso.tcc.services.UsuarioService;
+import trabalho.conclusao.curso.tcc.services.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +31,8 @@ public class PostController {
     private PostMoradiaService postMoradiaService;
     @Autowired
     private DetalhesMoradiaService detalhesMoradiaService;
-
+    @Autowired
+    private FotosService fotosService;
 
     @GetMapping
     public ResponseEntity<List<Post>> findAll() {
@@ -111,14 +110,24 @@ public class PostController {
                 dir.mkdirs();
             }
 
-            File serverFile = new File(imagesPaste + imagem.getOriginalFilename());
+            Date dataHora = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String nomeOriginal = imagem.getOriginalFilename();
+            String extensao = nomeOriginal.substring(nomeOriginal.lastIndexOf("."));
+            String dataString = formato.format(dataHora);
+
+            String semBarra = dataString.replace("/","");
+            String semDoisPontos = semBarra.replace(":","");
+            String semPontos = semDoisPontos.replace(".","");
+
+            File serverFile = new File(imagesPaste + id + semPontos + extensao);
 
             try (FileOutputStream stream = new FileOutputStream(serverFile)){
                 stream.write(imagem.getBytes());
 
             }
-            PostMoradia postMoradia = postMoradiaService.findById(id);
 
+            PostMoradia postMoradia = postMoradiaService.findById(id);
             fotos.setCaminhoImagem(serverFile.toString());
             fotos.setNomeFoto(serverFile.getName());
             fotos.setPostMoradia(postMoradia);
@@ -163,12 +172,29 @@ public class PostController {
         }
 
 
+
+
         obj = service.insert(obj);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);    //created(espera um obj uri) para voltar o voltar o padrao http certo
 
         // return new ResponseEntity<>(post, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/denunciar/{id}")
+    public ResponseEntity<Long> addDenuncia(@PathVariable Long id) {
+        Post post = service.findById(id);
+        int valor = post.getQntdDenuncia();
+        valor++;
+
+        post.setQntdDenuncia(valor);
+        service.editDenuncia(post);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
+        return ResponseEntity.created(uri).body(id);    //created(espera um obj uri) para voltar o voltar o padrao http certo
+        //return ResponseEntity.created(uri);
+        //return ResponseEntity.accepted().body(id);
     }
 
 
@@ -179,18 +205,37 @@ public class PostController {
         DetalhesMoradia detalhesMoradia = detalhesMoradiaService.findById(obj.getPostMoradia().getDetalhes().getId());
 
         Usuario user = userService.findById(idUser);
+        Fotos fotos = new Fotos();
+
+
+        System.out.println("updatePostMoradia obj fotos: " + obj.getPostMoradia().getFotos().toString());
+        System.out.println("updatePostMoradia postMoradia fotos: " + postMoradia.getFotos().toString());
 
         Post post = obj;
+        post.getPostMoradia().setFotos(obj.getPostMoradia().getFotos());
         //post.setDataPost(null);
         //post.setDataPost(new Date());
         if (user != null && postMoradia != null && detalhesMoradia != null) {
             post.setUsuario(user);
             post.getPostMoradia().setId(idMoradia);
-            post = service.insert(post);
+           // post = service.insert(obj);
+
+          //  if(postMoradia.getFotos().equals(obj.getPostMoradia().getFotos())){
+          //      obj.getPostMoradia().setFotos(null);
+          //  }
+
+
+            service.insert(obj);
+          //  for(int i = 0; i< post.getPostMoradia().getFotos().size(); i++){
+           //     fotos = post.getPostMoradia().getFotos().get(i);
+           //     fotos.setPostMoradia(postMoradia);
+
+           //     fotosService.insert(fotos);
+          //  }
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
             return ResponseEntity.created(uri).body(post);
         }
-
+      //  service.insert(obj);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(post);    //created(espera um obj uri) para voltar o voltar o padrao http certo

@@ -62,4 +62,14 @@ public class Fotos {
     public void setPostMoradia(PostMoradia postMoradia) {
         this.postMoradia = postMoradia;
     }
+
+    @Override
+    public String toString() {
+        return "Fotos{" +
+                "id=" + id +
+                ", nomeFoto='" + nomeFoto + '\'' +
+                ", caminhoImagem='" + caminhoImagem + '\'' +
+                ", postMoradia=" + postMoradia +
+                '}';
+    }
 }

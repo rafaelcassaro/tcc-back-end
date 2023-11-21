@@ -14,7 +14,10 @@ import trabalho.conclusao.curso.tcc.services.UsuarioService;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 @RestController
 @RequestMapping(value = "/usuarios")
@@ -95,7 +98,18 @@ public class UsuarioController {
                 dir.mkdirs();
             }
 
-            File serverFile = new File(imagesPaste + imagem.getOriginalFilename());
+
+            Date dataHora = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+            String nomeOriginal = imagem.getOriginalFilename();
+            String extensao = nomeOriginal.substring(nomeOriginal.lastIndexOf("."));
+            String dataString = formato.format(dataHora);
+
+            String semBarra = dataString.replace("/","");
+            String semDoisPontos = semBarra.replace(":","");
+            String semPontos = semDoisPontos.replace(".","");
+
+            File serverFile = new File(imagesPaste + id + semPontos + extensao);
 
             try (FileOutputStream stream = new FileOutputStream(serverFile)){
                 stream.write(imagem.getBytes());
@@ -130,7 +144,17 @@ public class UsuarioController {
                     dir.mkdirs();
                 }
 
-                File serverFile = new File(imagesPaste + imagem.getOriginalFilename());
+                Date dataHora = new Date();
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+                String nomeOriginal = imagem.getOriginalFilename();
+                String extensao = nomeOriginal.substring(nomeOriginal.lastIndexOf("."));
+                String dataString = formato.format(dataHora);
+
+                String semBarra = dataString.replace("/","");
+                String semDoisPontos = semBarra.replace(":","");
+                String semPontos = semDoisPontos.replace(".","");
+
+                File serverFile = new File(imagesPaste + id + semPontos + extensao);
 
                 try (FileOutputStream stream = new FileOutputStream(serverFile)){
                     stream.write(imagem.getBytes());

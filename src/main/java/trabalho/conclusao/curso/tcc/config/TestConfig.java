@@ -42,6 +42,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private ContratosRepository contratoRep;
 
+    @Autowired
+    private FeedbackRepository feedbackRepository;
+
 
     //Long id, String nome, String email, Integer celular, String senha, String link1, String link2, String link3) {
     @Override
@@ -53,16 +56,16 @@ public class TestConfig implements CommandLineRunner {
         String comentario = "Procuro alguem para divir um ap próximo do lugar x, com valor de xxxx, que aceita pets xxxxx";
 
 
-        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "a", "16992129161", u1EncryptedPassword, "Cristiano", "Cristiano", "Cristiano", "imgperfil.jpg", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil.jpg");
-        Usuario u2 = new Usuario(null, "Merlo", "b", "10000000", u2EncryptedPassword, "neymarjr", "neymarjr", "neymarjr","imgperfil2.png", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil2.png");
+        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "a", "+5511970999446", u1EncryptedPassword, "Cristiano", "Cristiano", "Cristiano", "imgperfil.jpg", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil.jpg");
+        Usuario u2 = new Usuario(null, "Merlo", "b", "+5516993404241", u2EncryptedPassword, "neymarjr", "neymarjr", "neymarjr","imgperfil2.png", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil2.png");
 
         Post post1 = new Post(null, 10, comentario, "Pontal", "SP", data, "89010025");
         Post post2 = new Post(null, 15, comentario, "Sertaozinho", "SP", data, "89010025");
         Post post3 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025");
         Post post4 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025");
 
-        Post post5 = new Post(null, 10, comentario, "Pontal", "SP", data, "89010025");
-        Post post6 = new Post(null, 15, comentario, "Sertaozinho", "SP", data, "89010025");
+        Post post5 = new Post(null, 10, comentario, "São Carlos", "SP", data, "89010025");
+        Post post6 = new Post(null, 15, comentario, "Bauru", "SP", data, "89010025");
         Post post7 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025");
         Post post8 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025");
 
@@ -93,6 +96,9 @@ public class TestConfig implements CommandLineRunner {
         Fotos foto7 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa7.jpg", "casa7.jpg");
         Fotos foto8 = new Fotos(null,"src\\main\\resources\\static\\images\\image-moradias\\casa8.jpg", "casa8.jpg");
 
+        //Feedback feedback = new Feedback(null, "asdfasdf");
+       // feedback.setUsuario(u1);
+      //  feedbackRepository.save(feedback);
 
         pMoradia1.addFoto(foto1);
         pMoradia1.addFoto(foto2);

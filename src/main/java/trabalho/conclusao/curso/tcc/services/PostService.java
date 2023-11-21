@@ -38,4 +38,9 @@ public class PostService {
         obj.setDataPost(new Date());
         return repository.save(obj);
     }
+
+    public Post editDenuncia(Post obj){
+        obj.setDataPost(new Date());
+        return repository.save(obj);
+    }
 }
