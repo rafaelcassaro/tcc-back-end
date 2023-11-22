@@ -213,16 +213,12 @@ public class PostController {
 
         Post post = obj;
         post.getPostMoradia().setFotos(obj.getPostMoradia().getFotos());
-        //post.setDataPost(null);
-        //post.setDataPost(new Date());
         if (user != null && postMoradia != null && detalhesMoradia != null) {
             post.setUsuario(user);
             post.getPostMoradia().setId(idMoradia);
            // post = service.insert(obj);
 
-          //  if(postMoradia.getFotos().equals(obj.getPostMoradia().getFotos())){
-          //      obj.getPostMoradia().setFotos(null);
-          //  }
+
 
 
             service.insert(obj);
