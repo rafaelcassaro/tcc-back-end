@@ -56,18 +56,18 @@ public class TestConfig implements CommandLineRunner {
         String comentario = "Procuro alguem para divir um ap próximo do lugar x, com valor de xxxx, que aceita pets xxxxx";
 
 
-        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "a", "+5511970999446", u1EncryptedPassword, "Cristiano", "Cristiano", "Cristiano", "imgperfil.jpg", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil.jpg");
-        Usuario u2 = new Usuario(null, "Merlo", "b", "+5516993404241", u2EncryptedPassword, "neymarjr", "neymarjr", "neymarjr","imgperfil2.png", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil2.png");
+        Usuario u1 = new Usuario(null, "Rafael Cassaro Costa", "rafael@email.com", "+5511970999446", u1EncryptedPassword, "Cristiano", "Cristiano", "Cristiano", "imgperfil.jpg", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil.jpg");
+        Usuario u2 = new Usuario(null, "José Costa", "b", "+5516993404241", u2EncryptedPassword, "neymarjr", "neymarjr", "neymarjr","imgperfil2.png", "src\\main\\resources\\static\\images\\image-perfil\\imgperfil2.png");
 
-        Post post1 = new Post(null, 10, comentario, "Pontal", "SP", data, "89010025");
-        Post post2 = new Post(null, 15, comentario, "Sertaozinho", "SP", data, "89010025");
-        Post post3 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025");
-        Post post4 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025");
+        Post post1 = new Post(null, 10, comentario, "Pontal", "SP", data, "89010025",false);
+        Post post2 = new Post(null, 15, comentario, "Sertaozinho", "SP", data, "89010025",false);
+        Post post3 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025",false);
+        Post post4 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025",false);
 
-        Post post5 = new Post(null, 10, comentario, "São Carlos", "SP", data, "89010025");
-        Post post6 = new Post(null, 15, comentario, "Bauru", "SP", data, "89010025");
-        Post post7 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025");
-        Post post8 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025");
+        Post post5 = new Post(null, 10, comentario, "São Carlos", "SP", data, "89010025",false);
+        Post post6 = new Post(null, 15, comentario, "Bauru", "SP", data, "89010025",false);
+        Post post7 = new Post(null, 15, comentario, "Franca", "SP", data, "89010025",false);
+        Post post8 = new Post(null, 15, comentario, "Campinas", "SP", data, "89010025",false);
 
         PostMoradia pMoradia1 = new PostMoradia(null, true, "U1 Rua Genoveva Onófre Barban", 679, 550.00);
         PostMoradia pMoradia2 = new PostMoradia(null, false, "U1 Rua Genoveva Onófre Barban", 2455, 800.00);

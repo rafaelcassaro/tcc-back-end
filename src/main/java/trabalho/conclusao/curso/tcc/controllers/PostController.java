@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,19 +38,37 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<Post>> findAll() {
         List<Post> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        List<Post> listNotExcluded = new ArrayList<>();
+        for(Post notExcluded :list){
+            if(!notExcluded.isExcluido()){
+                listNotExcluded.add(notExcluded);
+            }
+        }
+        return ResponseEntity.ok().body(listNotExcluded);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Post> findById(@PathVariable Long id) {
         Post obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+        if(!obj.isExcluido()){
+            return ResponseEntity.ok().body(obj);
+        }
+        else{
+            return ResponseEntity.badRequest().body(obj);
+        }
     }
 
     @GetMapping(value = "userPosts/{id}")
     public ResponseEntity<List<Post>> findPostByUserId(@PathVariable Long id) {
         List<Post> obj = service.findPostByUserId(id);
-        return ResponseEntity.ok().body(obj);
+
+        List<Post> listNotExcluded = new ArrayList<>();
+        for(Post notExcluded :obj){
+            if(!notExcluded.isExcluido()){
+                listNotExcluded.add(notExcluded);
+            }
+        }
+        return ResponseEntity.ok().body(listNotExcluded);
     }
 
     @GetMapping(value = "/cidade/{cidade}")
@@ -58,15 +77,6 @@ public class PostController {
         return ResponseEntity.ok().body(obj);
     }
 
-
-
-    /*@PostMapping
-    public ResponseEntity<Post> insert (@RequestBody Post obj){
-        obj = service.insert(obj);
-       // System.out.println(obj.getUsuario().getId());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).body(obj);    //created(espera um obj uri) para voltar o voltar o padrao http certo
-    }*/
 
     @GetMapping(value = "/fotoperfil/{imageName:.+}", produces = "image/jpeg")
     public ResponseEntity<Resource> getUserProfilePicture(@PathVariable String imageName){
@@ -258,6 +268,22 @@ public class PostController {
         return ResponseEntity.created(uri).body(post);    //created(espera um obj uri) para voltar o voltar o padrao http certo
         // return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value = "delete/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id){
+        Post post = service.findById(id);
+        if( post != null){
+            post.setExcluido(true);
+            service.delete(post);
+            return ResponseEntity.noContent().build();
+        }
+        else{
+            return ResponseEntity.badRequest().body(null);
+        }
+
+
+    }
+
 
 
 }

@@ -16,8 +16,7 @@ public class Fotos {
 
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_moradia_id")
     private PostMoradia postMoradia;
 

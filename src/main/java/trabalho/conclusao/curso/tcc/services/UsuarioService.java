@@ -1,6 +1,7 @@
 package trabalho.conclusao.curso.tcc.services;
 
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import trabalho.conclusao.curso.tcc.data.DetalhesUsuarioData;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +57,55 @@ public class UsuarioService{
     public Usuario update(Long id, Usuario obj) {
         try {
             Usuario entity = repository.getReferenceById(id);
+
+           // String encryptedPassword = new BCryptPasswordEncoder().encode(obj.getSenha());
+            //entity.setSenha(encryptedPassword);
+
             updateData(entity, obj);    //oq vai ser dado upadte pelo metodo
             return repository.save(entity);
         }catch(EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
         }
+    }
+
+
+    public Usuario updateSemSenha(Long id, Usuario obj) {
+        try {
+            Usuario entity = repository.getReferenceById(id);
+
+            //String encryptedPassword = new BCryptPasswordEncoder().encode(obj.getSenha());
+            //entity.setSenha(encryptedPassword);
+
+            updateDataSemSenha(entity, obj);    //oq vai ser dado upadte pelo metodo
+            return repository.save(entity);
+        }catch(EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+    public Usuario updateSenha(Long id, String password) {
+        try {
+            Usuario entity = repository.getReferenceById(id);
+            entity.setSenha(password);
+            String encryptedPassword = new BCryptPasswordEncoder().encode(entity.getSenha());
+            entity.setSenha(encryptedPassword);
+
+            return repository.save(entity);
+        }catch(EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+
+
+    private void updateDataSemSenha(Usuario entity, Usuario obj) {
+        entity.setNome(obj.getNome());
+        entity.setEmail(obj.getEmail());
+       // entity.setSenha(obj.getSenha());
+        entity.setCelular(obj.getCelular());
+        entity.setLink1(obj.getLink1());
+        entity.setLink2(obj.getLink2());
+        entity.setLink3(obj.getLink3());
     }
 
 

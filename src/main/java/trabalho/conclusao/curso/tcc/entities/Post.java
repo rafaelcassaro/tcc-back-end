@@ -16,6 +16,7 @@ public class Post {
     private String comentario;
     private String cidade;
     private String estado;
+    private boolean excluido;
 
    //G @JsonFormat(pattern="dd MMM yyyy")
     private Date dataPost;
@@ -35,7 +36,7 @@ public class Post {
 
     public Post(){}
 
-    public Post(Long id, Integer qntdDenuncia, String comentario, String cidade, String estado, Date dataPost, String cep) {
+    public Post(Long id, Integer qntdDenuncia, String comentario, String cidade, String estado, Date dataPost, String cep, boolean excluido) {
         this.id = id;
         this.qntdDenuncia = qntdDenuncia;
         this.comentario = comentario;
@@ -43,6 +44,7 @@ public class Post {
         this.estado = estado;
         this.dataPost = dataPost;
         this.cep = cep;
+        this.excluido = excluido;
     }
 
     public Long getId() {
@@ -115,5 +117,13 @@ public class Post {
 
     public void setPostMoradia(PostMoradia postMoradia) {
         this.postMoradia = postMoradia;
+    }
+
+    public boolean isExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(boolean excluido) {
+        this.excluido = excluido;
     }
 }

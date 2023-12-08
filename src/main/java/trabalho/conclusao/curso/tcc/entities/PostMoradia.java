@@ -23,8 +23,7 @@ public class PostMoradia {
     @JoinColumn(name = "detalhes_moradia_id")
     private DetalhesMoradia detalhesMoradia;
 
-    @OneToMany(mappedBy = "postMoradia",cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "postMoradia",cascade = CascadeType.ALL)
     private List<Fotos> fotos;
 
     public PostMoradia(){}

@@ -1,9 +1,12 @@
 package trabalho.conclusao.curso.tcc.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import trabalho.conclusao.curso.tcc.entities.Post;
 import trabalho.conclusao.curso.tcc.repositories.PostRepository;
+import trabalho.conclusao.curso.tcc.services.exceptions.DatabaseException;
 import trabalho.conclusao.curso.tcc.services.exceptions.ResourceNotFoundException;
 
 import java.util.Date;
@@ -25,9 +28,7 @@ public class PostService {
     }
 
     public List<Post> findPostByUserId(Long id) {
-        //List<Post> obj = repository.findPostByUserId(id);
         return repository.findAllPostByusuario_id(id);
-        //return null;
     }
 
     public List<Post> findAllPostBycidade(String cidade){
@@ -36,11 +37,21 @@ public class PostService {
 
     public Post insert(Post obj){
         obj.setDataPost(new Date());
+        obj.setExcluido(false);
         return repository.save(obj);
     }
 
     public Post editDenuncia(Post obj){
-        obj.setDataPost(new Date());
         return repository.save(obj);
+    }
+
+    public Post delete (Post obj) {
+        try {
+            return repository.save(obj);
+        }catch(EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(obj);
+        }catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }
