@@ -74,7 +74,13 @@ public class PostController {
     @GetMapping(value = "/cidade/{cidade}")
     public ResponseEntity<List<Post>> findAllPostBycidade(@PathVariable String cidade){
         List<Post> obj = service.findAllPostBycidade(cidade);
-        return ResponseEntity.ok().body(obj);
+        List<Post> listNotExcluded = new ArrayList<>();
+        for(Post notExcluded :obj){
+            if(!notExcluded.isExcluido()){
+                listNotExcluded.add(notExcluded);
+            }
+        }
+        return ResponseEntity.ok().body(listNotExcluded);
     }
 
 

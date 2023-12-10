@@ -64,7 +64,7 @@ public class TestConfig implements CommandLineRunner {
         Post post3 = new Post(null, 15, comentario, "Ribeirão Preto", "SP", data, "89010025",false);
         Post post4 = new Post(null, 15, comentario, "Santa Catarina", "SC", data, "89010025",false);
 
-        Post post5 = new Post(null, 10, comentario, "São Carlos", "SP", data, "89010025",false);
+        Post post5 = new Post(null, 10, comentario, "Pontal", "SP", data, "89010025",false);
         Post post6 = new Post(null, 15, comentario, "Bauru", "SP", data, "89010025",false);
         Post post7 = new Post(null, 15, comentario, "Franca", "SP", data, "89010025",false);
         Post post8 = new Post(null, 15, comentario, "Campinas", "SP", data, "89010025",false);
